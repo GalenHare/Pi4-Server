@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 var Student  = require('./models/students');
 var Attendance  = require('./models/attendance');
 //Connect to mongoose
-mongoose.connect('mongodb://localhost/registrationDB', {useUnifiedTopology: true, useNewUrlParser: true,useCreateIndex:true});
+mongoose.connect('mongodb://localhost/registrationDB', {useMongoClient:true});
 var db = mongoose.connection;
 
 app.get('/',function(req,res){
