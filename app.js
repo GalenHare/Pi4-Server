@@ -15,6 +15,10 @@ app.get('/',function(req,res){
     res.send("Hello World");
 });
 
+
+//==============Attendance Handling===================//
+
+//Get all attendance records
 app.get('/api/attendance',function(req,res){
     Attendance.getAttendance(function(err,attendance){
       if(err){
@@ -24,35 +28,7 @@ app.get('/api/attendance',function(req,res){
     });
 });
 
-app.get('/api/students',function(req,res){
-    Student.getStudents(function(err,students){
-      if(err){
-          throw err;
-      }      
-      res.json(students);
-    });
-});
-
-app.get('/api/students/:_id',function(req,res){
-    Student.getStudentById(req.params._id,function(err,student){
-      if(err){
-          throw err;
-      }      
-      res.json(student);
-    });
-});
-
-app.post('/api/students',function(req,res){
-    var student = req.body;
-    Student.addStudent(student,function(err,student){
-      if(err){
-          throw err;
-      }  
-      console.log(student)    
-      res.json(student);
-    });
-});
-
+//Get attendance record by ID
 app.get('/api/attendance/:_id',function(req,res){
     Attendance.getAttendanceById(req.params._id,function(err,attendance){
       if(err){
@@ -62,8 +38,30 @@ app.get('/api/attendance/:_id',function(req,res){
     });
 });
 
+//Get Attendance records for a date 
 app.get('/api/attendance/date/:date',function(req,res){
     Attendance.getAttendanceByDate(req.params.date,function(err,attendance){
+      if(err){
+          throw err;
+      }      
+      res.json(attendance);
+    });
+});
+
+//Get attendance between two dates
+app.get('/api/attendance/2date/:datefrom/:dateto',function(req,res){
+    Attendance.getAttendanceByDate(req.params.datefrom,req.params.dateto,function(err,attendance){
+      if(err){
+          throw err;
+      }      
+      res.json(attendance);
+    });
+});
+
+//Post attendance record for student by ID and course code
+app.post('/api/attendance',function(req,res){
+    var record = req.body;
+    Attendance.getAttendanceByDate(record,function(err,attendance){
       if(err){
           throw err;
       }      
@@ -103,6 +101,38 @@ app.delete('/api/attendance/:_id/:date',function(req,res){
       res.json(attendance);
     });
 });
+
+
+app.get('/api/students',function(req,res){
+    Student.getStudents(function(err,students){
+      if(err){
+          throw err;
+      }      
+      res.json(students);
+    });
+});
+
+app.get('/api/students/:_id',function(req,res){
+    Student.getStudentById(req.params._id,function(err,student){
+      if(err){
+          throw err;
+      }      
+      res.json(student);
+    });
+});
+
+app.post('/api/students',function(req,res){
+    var student = req.body;
+    Student.addStudent(student,function(err,student){
+      if(err){
+          throw err;
+      }  
+      console.log(student)    
+      res.json(student);
+    });
+});
+
+
 
 // app.get('api/student/id/:id/fingerprint/:fingerpint',function(req,res){
 //     var id = req.params.id;
