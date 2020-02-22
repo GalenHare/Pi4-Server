@@ -20,18 +20,23 @@ module.exports.getAttendance = function(callback, limit){
     Attendance.find(callback).limit(limit);
 }
 
-//get attendance records for a student
+//get attendance records by ID
 module.exports.getAttendanceById = function(id,callback, limit){
     Attendance.find({studentID:id},callback).limit(limit);
 }
 
-//get attendance records for a student
+//create attendance records for a student
 module.exports.createAttendanceRecord = function(record,callback){
     Attendance.create(record,callback);
 }
 
 //get attendance records for a certain date
 module.exports.getAttendanceByDate = function(date,callback,limit){
+    Attendance.find({date:date},callback).limit(limit);
+}
+
+//get attendance records between two dates
+module.exports.getAttendanceByDate = function(datefrom,dateto,callback,limit){
     Attendance.find({date:date},callback).limit(limit);
 }
 
