@@ -1,6 +1,6 @@
 const express = require('express');
-const router = express.Router;
-const attendances = require('../models/Attendances')
+const router = express.Router();
+const Attendance = require('../models/attendance')
 
 //==============Attendance Handling===================//
 
@@ -87,3 +87,6 @@ router.delete('/:_id/:date',function(req,res){
       res.json(attendance);
     });
 });
+
+module.exports = router;
+

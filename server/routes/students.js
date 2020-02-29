@@ -1,11 +1,11 @@
 const express = require('express');
-const router = express.Router;
-const students = require('../models/Students')
+const router = express.Router();
+const Student = require('../models/student')
 
 //===================Student Handling=============================//
 
 //Get all students
-router.get('/api/students',function(req,res){
+router.get('/',function(req,res){
     Student.getStudents(function(err,students){
       if(err){
           throw err;
@@ -15,7 +15,7 @@ router.get('/api/students',function(req,res){
 });
 
 //Get student by id
-router.get('/api/students/:_id',function(req,res){
+router.get('/:_id',function(req,res){
     Student.getStudentById(req.params._id,function(err,student){
       if(err){
           throw err;
@@ -25,7 +25,7 @@ router.get('/api/students/:_id',function(req,res){
 });
 
 //Post a student
-router.post('/api/students',function(req,res){
+router.post('/',function(req,res){
     var student = req.body;
     Student.addStudent(student,function(err,student){
       if(err){
@@ -35,3 +35,5 @@ router.post('/api/students',function(req,res){
       res.json(student);
     });
 });
+
+module.exports = router;

@@ -11,7 +11,7 @@ var studentSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    fingerprint:{
+    studentID:{
         type:String,
         unique:true,
     }
