@@ -21,8 +21,8 @@ module.exports.getFingerprints = function(callback, limit){
 }
 
 //get a fingerprint by ID
-module.exports.getFingeprintById = function(id,callback){
-    Fingerprint.findOne({studentID:id},callback);
+module.exports.getFingerprintById = function(id,callback){
+    Fingerprint.find({studentID:id},callback);
 }
 
 //add a fingerprint
