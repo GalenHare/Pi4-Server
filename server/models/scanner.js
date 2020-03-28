@@ -41,10 +41,8 @@ module.exports.getScannerById = function(id,callback){
 }
 
 //add a scanner
-module.exports.addScanner = function(body,callback){
-    startMinute = parseInt(body.startHour) *60 + parseInt(body.startMinute);
-    endMinute = parseInt(body.endHour) *60 + parseInt(body.endMinute);
-    scanner = {scannerID:body.scannerID,day:body.day,startMinutes:startMinute,endMinutes:endMinute,courseCode:body.courseCode}
+module.exports.addScanner = function(scanner,callback){
+    //TODO: Add check for if fields not provided
     Scanner.create(scanner,callback);
 }
 

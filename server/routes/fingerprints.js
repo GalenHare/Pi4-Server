@@ -15,7 +15,7 @@ router.get('/',function(req,res){
 });
 
 //Get fingerprints by id
-router.get('/:_id',function(req,res){
+router.get('/id/:_id',function(req,res){
     Fingerprint.getFingerprintById(req.params._id,function(err,fingerprint){
       if(err){
           throw err;

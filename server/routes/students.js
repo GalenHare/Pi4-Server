@@ -15,7 +15,7 @@ router.get('/',function(req,res){
 });
 
 //Get student by id
-router.get('/:_id',function(req,res){
+router.get('/id/:_id',function(req,res){
     Student.getStudentById(req.params._id,function(err,student){
       if(err){
           throw err;

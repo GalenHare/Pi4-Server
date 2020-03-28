@@ -15,7 +15,7 @@ router.get('/',function(req,res){
 });
 
 //Get course by id
-router.get('/:_id',function(req,res){
+router.get('/id/:_id',function(req,res){
     Course.getCourseById(req.params._id,function(err,course){
       if(err){
           throw err;

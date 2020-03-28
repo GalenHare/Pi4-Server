@@ -6,7 +6,8 @@ const Scanner = require('../models/scanner')
 
 //Get all Scanners
 router.get('/',function(req,res){
-    Scanner.getStudents(function(err,scanner){
+    console.log("Herenow");
+    Scanner.getScanners(function(err,scanner){
       if(err){
           throw err;
       }      
@@ -15,7 +16,7 @@ router.get('/',function(req,res){
 });
 
 //Get Scanner by id
-router.get('/:_id',function(req,res){
+router.get('/id/:_id',function(req,res){
     Scanner.getScannerById(req.params._id,function(err,scanner){
       if(err){
           throw err;
@@ -30,25 +31,33 @@ router.get('/:_id',function(req,res){
 //into the amount of minutes that have passed since the day started
 router.post('/',function(req,res){
     var body = req.body;
-    Scanner.addScanner(body,function(err,scanner){
-      if(err){
-          throw err;
-      }  
-      console.log(scanner)    
-      res.json(scanner);
-    });
-});
-
-//Get course the scanner in question should be marking attendance for at this time
-router.get('/course/:_id/:currentDate',function(req,res){
-    let current = new Date(currentDate);
-    Scanner.getCurrentCourse(_id,current,function(err,record){
+    console.log(body);
+    startMinute = parseInt(body.startHour) *60 + parseInt(body.startMinute);
+    endMinute = parseInt(body.endHour) *60 + parseInt(body.endMinute);
+    var scanner = {"scannerID":body.scannerID,"day":body.day,"startMinute":startMinute,"endMinute":endMinute,"courseCode":body.courseCode};
+    console.log(scanner);
+    Scanner.addScanner(scanner,function(err,record){
       if(err){
           throw err;
       }  
       console.log(record)    
       res.json(record);
     });
+});
+
+//Get course the scanner in question should be marking attendance for at this time
+router.get('/course',function(req,res){
+    console.log(req.query.currentDate);
+    console.log(typeof(req.query.currentDate))
+    let current = new Date(req.query.currentDate);
+    console.log(current);
+    // Scanner.getCurrentCourse(req.query._id,current,function(err,record){
+    //   if(err){
+    //       throw err;
+    //   }  
+    //   console.log(record)    
+    //   res.json(record);
+    // });
 });
 
 module.exports = router;

@@ -15,7 +15,7 @@ router.get('/',function(req,res){
 });
 
 //Get attendance record by ID
-router.get('/:_id',function(req,res){
+router.get('/id/:_id',function(req,res){
     Attendance.getAttendanceById(req.params._id,function(err,attendance){
       if(err){
           throw err;
@@ -55,10 +55,9 @@ router.post('/',function(req,res){
     });
 });
 
-router.put('/:_id',function(req,res){
-    var id = req.params.id;
+router.put('/id/:_id',function(req,res){
     var record = req.body;
-    Attendance.updateAttendanceRecord(id,record,{},function(err,attendance){
+    Attendance.updateAttendanceRecord(_id,record,{},function(err,attendance){
       if(err){
           throw err;
       }      
@@ -66,9 +65,8 @@ router.put('/:_id',function(req,res){
     });
 });
 
-router.delete('/:_id',function(req,res){
-    var id = req.params.id;
-    Attendance.deleteAttendanceRecord(id,function(err,attendance){
+router.delete('/id/:_id',function(req,res){
+    Attendance.deleteAttendanceRecord(_id,function(err,attendance){
       if(err){
           throw err;
       }      
