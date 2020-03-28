@@ -8,6 +8,10 @@ var attendanceSchema = mongoose.Schema({
         required:true
     },
     date:{
+        type:Date,
+        required:true
+    },
+    courseCode:{
         type:String,
         required:true
     }

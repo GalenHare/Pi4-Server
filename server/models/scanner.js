@@ -8,12 +8,18 @@ var scannerSchema = mongoose.Schema({
         required:true,
         unique:true
     },
-    startTime:{
-        type:Date,
+    day:{
+        type:Number,
         required:true
     },
-    endTime:{
-        type:Date,
+    //Amount of minutes passed since the start of the day
+    startMinute:{
+        type:Number,
+        required:true
+    },
+    //Amount of minutes passed since the start of the day
+    endMinute:{
+        type:Number,
         required:true
     },
     courseCode:{
@@ -35,7 +41,10 @@ module.exports.getScannerById = function(id,callback){
 }
 
 //add a scanner
-module.exports.addScanner = function(scanner,callback){
+module.exports.addScanner = function(body,callback){
+    startMinute = parseInt(body.startHour) *60 + parseInt(body.startMinute);
+    endMinute = parseInt(body.endHour) *60 + parseInt(body.endMinute);
+    scanner = {scannerID:body.scannerID,day:body.day,startMinutes:startMinute,endMinutes:endMinute,courseCode:body.courseCode}
     Scanner.create(scanner,callback);
 }
 
@@ -43,5 +52,8 @@ module.exports.addScanner = function(scanner,callback){
 //This function will find the relevant course to send
 //At whatever time the request is made the currentCourse at that time as well as the end time for that course will be sent
 module.exports.getCurrentCourse = function(scannerID,currentTime,callback){
-        Scanner.find({scannerID:scannerID, startTime:{"$lte":currentTime},endTime:{"$gt":currentTime}},callback)   
+        var hour = currentTime.getHours();
+        var day = currentTime.getDay();
+        var mins = currentTime.getMinutes() + (hour * 60);
+        Scanner.find({scannerID:scannerID, day:day,startMinute:{"$lte":mins},endMinute:{"$gt":mins}},callback)   
 }

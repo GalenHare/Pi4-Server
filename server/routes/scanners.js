@@ -25,6 +25,9 @@ router.get('/:_id',function(req,res){
 });
 
 //Post a Scanner
+//To add a scanner send two date strings consisting of {day,startTime,endTime}
+//After receiving this for ease of querying when it is stored in the database the time will be converted 
+//into the amount of minutes that have passed since the day started
 router.post('/',function(req,res){
     var body = req.body;
     Scanner.addScanner(body,function(err,scanner){
@@ -37,14 +40,14 @@ router.post('/',function(req,res){
 });
 
 //Get course the scanner in question should be marking attendance for at this time
-router.get('/course/:_id',function(req,res){
-    let current = new Date();
-    Scanner.getCurrentCourse(id,current,function(err,record){
+router.get('/course/:_id/:currentDate',function(req,res){
+    let current = new Date(currentDate);
+    Scanner.getCurrentCourse(_id,current,function(err,record){
       if(err){
           throw err;
       }  
       console.log(record)    
-      res.json(record.courseCode);
+      res.json(record);
     });
 });
 
