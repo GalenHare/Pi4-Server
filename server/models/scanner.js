@@ -22,25 +22,26 @@ var scannerSchema = mongoose.Schema({
     }
 });
 
-var Course = module.exports = mongoose.model('Course',courseSchema);
+var Scanner = module.exports = mongoose.model('Scanner',scannerSchema);
 
-//get all courses
-module.exports.getCourses = function(callback, limit){
-    Course.find(callback).limit(limit);
+//get all scanners
+module.exports.getScanners = function(callback, limit){
+    Scanner.find(callback).limit(limit);
 }
 
-//get a course by ID
-module.exports.getCourseById = function(id,callback){
-    Course.findOne({courseCode:id},callback);
+//get a scanner by ID
+module.exports.getScannerById = function(id,callback){
+    Scanner.find({scannerID:id},callback);
 }
 
-//get a course by name
-module.exports.getCourseByName = function(name,callback){
-    Course.findOne({courseName:name},callback);
+//add a scanner
+module.exports.addScanner = function(scanner,callback){
+    Scanner.create(scanner,callback);
 }
 
-//add a course
-module.exports.addStudent = function(course,callback){
-    Course.create(course,callback);
+//Each scanner will request the current course which should be sent with each attendance record from this collection
+//This function will find the relevant course to send
+//At whatever time the request is made the currentCourse at that time as well as the end time for that course will be sent
+module.exports.getCurrentCourse = function(scannerID,currentTime,callback){
+        Scanner.find({scannerID:scannerID, startTime:{"$lte":currentTime},endTime:{"$gt":currentTime}},callback)   
 }
-
