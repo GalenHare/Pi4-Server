@@ -9,7 +9,7 @@
   "dependencies": {
     "cors": "*",
     "express": "*",
-    "mongoose": "*"
+    "mongoose": "4.7.3"
   },
   "author": "Galen Hare",
   "license": "ISC"
