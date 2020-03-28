@@ -13,6 +13,7 @@
   "dependencies": {
     "@nuxtjs/pwa": "^3.0.0-0",
     "axios": "^0.19.2",
+    "eslint": "^6.8.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
