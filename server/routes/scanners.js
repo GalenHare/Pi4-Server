@@ -51,13 +51,18 @@ router.get('/course',function(req,res){
     console.log(typeof(req.query.currentDate))
     let current = new Date(req.query.currentDate);
     console.log(current);
-    // Scanner.getCurrentCourse(req.query._id,current,function(err,record){
-    //   if(err){
-    //       throw err;
-    //   }  
-    //   console.log(record)    
-    //   res.json(record);
-    // });
+    var hour = current.getHours();
+    var mins = current.getMinutes() + (hour * 60);
+    console.log(mins);
+    var day = current.getDay();
+    console.log(day)
+    Scanner.getCurrentCourse(req.query._id,current,function(err,record){
+      if(err){
+          throw err;
+      }  
+      console.log(record)    
+      res.json(record);
+    });
 });
 
 module.exports = router;
