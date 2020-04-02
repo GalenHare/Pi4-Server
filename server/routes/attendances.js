@@ -35,19 +35,19 @@ router.get('/date/:date',function(req,res){
 });
 
 //Get attendance between two dates
-router.get('/2date/:datefrom/:dateto',function(req,res){
-    Attendance.getAttendanceByDate(req.params.datefrom,req.params.dateto,function(err,attendance){
-      if(err){
-          throw err;
-      }      
-      res.json(attendance);
-    });
-});
+// router.get('/2date/:datefrom/:dateto',function(req,res){
+//     Attendance.getAttendanceByDate(req.params.datefrom,req.params.dateto,function(err,attendance){
+//       if(err){
+//           throw err;
+//       }      
+//       res.json(attendance);
+//     });
+// });
 
 //Post attendance record for student by ID and course code
 router.post('/',function(req,res){
     var record = req.body;
-    Attendance.getAttendanceByDate(record,function(err,attendance){
+    Attendance.createAttendanceRecord(record,function(err,attendance){
       if(err){
           throw err;
       }      

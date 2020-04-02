@@ -6,7 +6,6 @@ const Scanner = require('../models/scanner')
 
 //Get all Scanners
 router.get('/',function(req,res){
-    console.log("Herenow");
     Scanner.getScanners(function(err,scanner){
       if(err){
           throw err;
