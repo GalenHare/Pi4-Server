@@ -56,6 +56,11 @@ module.exports.verify = function (goal,fingerprints){
     return [sum,result];
 }
 
+//delete attendance records by student ID and date
+module.exports.deleteFingerprint = function(id,callback){
+    Student.deleteMany({id:id},callback);
+}
+
 function formatFingerprint(i){
     var temp = i.split(", ");
     temp[0] = temp[0].split("[")[1];

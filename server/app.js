@@ -9,6 +9,8 @@ app.use(express.json());
 mongoose.connect('mongodb://localhost/registrationDB');
 var db = mongoose.connection;
 
+
+
 app.use('/api/attendance',require('./routes/attendances'));
 app.use('/api/student',require('./routes/students'));
 app.use('/api/fingerprint',require('./routes/fingerprints'));
@@ -16,6 +18,7 @@ app.use('/api/scanner',require('./routes/scanners'));
 app.get('/',function(req,res){
     res.send("Hello World");
 });
+
 
 app.listen(5000);
 console.log("Running on port 5000")

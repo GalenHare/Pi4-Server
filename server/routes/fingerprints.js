@@ -51,5 +51,13 @@ router.post('/search',function(req,res){
   });
 });
 
+router.delete('/id/:id',function(req,res){
+  Student.deleteFingerprint(req.params.id,function(err,result){
+    if(err) throw err;
+    console.log(result);
+    res.json(result);
+  });
+});
+
 module.exports = router;
 
