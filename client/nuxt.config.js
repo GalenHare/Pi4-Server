@@ -53,6 +53,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
+    transpile: ['vue-echarts', 'resize-detector'],
     extend (config, ctx) {
     }
   }
