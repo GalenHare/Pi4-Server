@@ -1,10 +1,10 @@
 # Pi4-Server
 
-> My exquisite Nuxt.js project
+> My legendary Nuxt.js project
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ npm install
 

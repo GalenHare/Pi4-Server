@@ -15,7 +15,7 @@
           Courses
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Add/Remove</a>
+          <a class="dropdown-item" href="/addCourse">Add/Remove</a>
           <a class="dropdown-item" href="/courses">View</a>
         </div>
       </li>

@@ -38,42 +38,18 @@
         </ul>
       </p>
     </div>
-    <v-chart :options="line"/>
   </div>
 </template>
 
 <script>
 import AttendanceService from '../middleware/AttendanceService.js';
-import ECharts from 'vue-echarts';
-import 'echarts/lib/chart/line';
-import 'echarts/lib/component/polar';
 
 export default {
   components: {
-    'v-chart': ECharts
+    
   },
   data() {
     return {
-      line: {
-              title: {text: 'Line Chart'},
-              tooltip: {},
-              toolbox: {
-                  feature: {
-                      dataView: {},
-                      saveAsImage: {
-                          pixelRatio: 2
-                      },
-                      restore: {}
-                  }
-              },
-              xAxis: {},
-              yAxis: {},
-              series: [{
-                  type: 'line',
-                  smooth: true,
-                  data: [[12, 5], [24, 20], [36, 36], [48, 10], [60, 10], [72, 20]]
-              }]
-          },
       year:null,
       month:null,
       day:null,
@@ -133,8 +109,8 @@ export default {
   padding-top: 15px;
 }
 
-.echarts {
+/* .echarts {
   width: 100%;
   height: 100%;
-}
+} */
 </style>
