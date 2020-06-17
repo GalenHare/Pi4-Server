@@ -15,6 +15,7 @@ app.use('/api/attendance',require('./routes/attendances'));
 app.use('/api/student',require('./routes/students'));
 app.use('/api/fingerprint',require('./routes/fingerprints'));
 app.use('/api/scanner',require('./routes/scanners'));
+app.use('/api/scanner',require('./routes/courses'));
 app.get('/',function(req,res){
     res.send("Hello World");
 });

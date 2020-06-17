@@ -40,9 +40,9 @@ module.exports.getAttendanceByDate = function(date,callback,limit){
 }
 
 //get attendance records between two dates
-// module.exports.getAttendanceByDate = function(datefrom,dateto,callback,limit){
-//     Attendance.find({date:date},callback).limit(limit);
-// }
+module.exports.getAttendanceBetweenDates = function(coursecode,datefrom,dateto,callback,limit){
+    Attendance.find({courseCode:coursecode,date:{ "$gte" : datefrom, "$lt" : dateto }},callback).limit(limit);
+}
 
 //update attendance records by student ID
 module.exports.updateAttendanceRecord = function(id,attendanceR,options,callback){
