@@ -6,7 +6,6 @@ var scannerSchema = mongoose.Schema({
     scannerID:{
         type:String,
         required:true,
-        unique:true
     },
     day:{
         type:Number,

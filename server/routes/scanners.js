@@ -35,13 +35,13 @@ router.post('/',function(req,res){
     endMinute = parseInt(body.endHour) *60 + parseInt(body.endMinute);
     var scanner = {"scannerID":body.scannerID,"day":body.day,"startMinute":startMinute,"endMinute":endMinute,"courseCode":body.courseCode};
     console.log(scanner);
-    Scanner.addScanner(scanner,function(err,record){
-      if(err){
-          throw err;
-      }  
-      console.log(record)    
-      res.json(record);
-    });
+      Scanner.addScanner(scanner,function(err,record){
+        if(err){
+            throw err;
+        }  
+        console.log(record)    
+        res.json(record);
+      });
 });
 
 //Get course the scanner in question should be marking attendance for at this time
