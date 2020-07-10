@@ -1,13 +1,14 @@
 <template>
   <div class="container">
     <div class="row">
-        <div class="col-sm-5"></div>
-        <h2 class="col-sm-3">START</h2>
-        <div class="col-sm-1"></div>
-        <h2 class="col-sm-3">END</h2>
+      <div class="col-sm-5"></div>
+      <h2 class="col-sm-3">START</h2>
+      <div class="col-sm-1"></div>
+      <h2 class="col-sm-3">END</h2>
     </div>
     <div>
-        <form class = "form-group row justify-content-center" @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit">
+      <div class = "form-group row justify-content-center">
         <div class = "form-group col-sm-2">
             <label for="course">Course</label>
             <input type="text" v-model="course" class="form-control" name="course">
@@ -15,11 +16,11 @@
           <div class = "form-group col-sm-1">
             <label for="startDay">Day</label>
             <select  v-model="startDay" name="startDay">
-                <option value="Monday" selected>Mon</option>
-                <option value="Tuesday">Tues</option>
-                <option value="Wednesday">Wed</option>
-                <option value="Thursday">Thurs</option>
-                <option value="Friday">Fri</option>
+                <option value="1" selected>Mon</option>
+                <option value="2">Tues</option>
+                <option value="3">Wed</option>
+                <option value="4">Thurs</option>
+                <option value="5">Fri</option>
             </select>
           </div>
           <div class="col-sm-1"></div>
@@ -43,7 +44,8 @@
           <div class = "form-group col-sm-1">
                 <label for="startMinute">Minute</label>
                 <select  name="startMinute" v-model="startMinute">
-                    <option value="1" selected>01</option>
+                    <option value="0" selected>00</option>
+                    <option value="1">01</option>
                     <option value="2">02</option>
                     <option value="3">03</option>
                     <option value="4">04</option>
@@ -131,7 +133,8 @@
           <div class = "form-group col-sm-1">
                 <label for="endMinute">Minute</label>
                 <select  name="endMinute" v-model="endMinute">
-                    <option value="1" selected>01</option>
+                    <option value="0" selected>00</option>
+                    <option value="1">01</option>
                     <option value="2">02</option>
                     <option value="3">03</option>
                     <option value="4">04</option>
@@ -200,22 +203,32 @@
                     <option value="2">P.M.</option>
                 </select>
           </div>
-          <button type="submit" class="btn btn-primary">Add</button>
+          <div class = "form-group row">
+            <label for="course">Scanner ID</label>
+            <input type="text" v-model="scannerID" class="form-control" name="scannerID">
+          </div>
+        </div>
+          <div class = "row">
+            <div class = "col-sm-8"></div>
+            <select  class="col-sm-2"name="option" v-model="buttonVal">
+              <option value="1" selected>Add</option>
+              <option value="2">Delete</option>
+            </select>
+            <button type="submit" class="btn btn-primary col-sm-2">Submit</button>
+          </div>
       </form> 
-      <p v-if="error">
+      <p v-if="error ==='1'">
         Please fill in all fields
       </p>
-      <p v-else>
-        <ul>
-          <li v-for="i in data">{{i}}</li>
-        </ul>
+      <p v-else-if="error === '2'">
+        Incorrect time logic!
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import AttendanceService from '../middleware/AttendanceService.js';
+import ScannerService from '../middleware/ScannerService.js';
 
 export default {
   components: {
@@ -232,24 +245,47 @@ export default {
       noonOrNight:null,
       noonOrNight2:null,
       data:[],
-      error:null
+      scannerID:null,
+      error:null,
+      buttonVal:null
     };
   },
   methods:{
       async handleSubmit(){
-          if(!this.course){
-            this.error = true;
+        console.log(this.error)
+        let tempStartHour = this.startHour;
+        let tempEndHour = this.endHour;
+        if(this.noonOrNight == "2"){
+          tempStartHour = 12 + parseInt(this.startHour);
+        }
+        if(this.noonOrNight2 == "2"){
+          tempEndHour = 12 + parseInt(this.endHour);
+        }
+        if(!this.scannerID || !this.course || !this.startDay || !this.startHour || !this.startMinute || !this.endHour || !this.endMinute || !this.noonOrNight || !this.noonOrNight2){
+          this.error = "1";
+        }else if((parseInt(tempStartHour)*60 + parseInt(this.startMinute))>= (parseInt(tempEndHour)*60 + parseInt(this.endMinute))){
+          this.error = "2"
+        }else{
+          this.error = false;
+          console.log(this.scannerID);
+          console.log(this.course);
+          console.log(this.startDay);
+          console.log(tempStartHour);
+          console.log(this.startMinute);
+          console.log(tempEndHour);
+          console.log(this.endMinute);
+          if(this.buttonVal == "1"){
+            this.data = await ScannerService.addCourse(this.scannerID,this.course,this.startDay, tempStartHour, this.startMinute, tempEndHour, this.endMinute);
+            if(this.data != null){
+              alert("Query Successful");
+            }
           }else{
-            this.error = false;
-            console.log(this.startDay);
-            console.log(this.startHour);
-            console.log(this.endHour);
-            console.log(this.startMinute);
-            console.log(this.endMinute);
-            console.log(this.noonOrNight);
-            console.log(this.noonOrNight2);
-            console.log(this.course);
+            this.data = await ScannerService.deleteCourse(this.scannerID,this.course,this.startDay, tempStartHour, this.startMinute, tempEndHour, this.endMinute  );
+            if(this.data != null){
+              alert("Query Successful");
+            }
           }
+        }
       }
   },
   created(){

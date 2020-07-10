@@ -6,7 +6,7 @@ app.use(cors());
 app.use(express.json());
 
 //Connect to mongoose
-mongoose.connect('mongodb://localhost/registrationDB');
+mongoose.connect('mongodb://localhost/registrationDB',{ useNewUrlParser: true ,useUnifiedTopology: true});
 var db = mongoose.connection;
 
 

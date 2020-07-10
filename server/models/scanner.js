@@ -45,6 +45,12 @@ module.exports.addScanner = function(scanner,callback){
     Scanner.create(scanner,callback);
 }
 
+//add a scanner
+module.exports.deleteScanner = function(scanner,callback){
+    //TODO: Add check for if fields not provided
+    Scanner.deleteOne(scanner,callback);
+}
+
 //Each scanner will request the current course which should be sent with each attendance record from this collection
 //This function will find the relevant course to send
 //At whatever time the request is made the currentCourse at that time as well as the end time for that course will be sent
@@ -54,3 +60,9 @@ module.exports.getCurrentCourse = function(scannerID,currentTime,callback){
         var mins = currentTime.getMinutes() + (hour * 60);
         Scanner.find({scannerID:scannerID, day:day,startMinute:{"$lte":mins},endMinute:{"$gt":mins}},callback)   
 }
+
+module.exports.checkCourse = function(scannerID,sMinute,eMinute,callback){
+    Scanner.find({scannerID:scannerID, day:day,startMinute:{"$lte":sMinute},endMinute:{"$gt":eMinute}},callback)   
+}
+
+

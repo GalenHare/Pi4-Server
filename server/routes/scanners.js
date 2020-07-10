@@ -64,4 +64,20 @@ router.get('/course',function(req,res){
     });
 });
 
+router.delete('/',function(req,res){
+  var body = req.body;
+  console.log(body);
+  startMinute = parseInt(body.startHour) *60 + parseInt(body.startMinute);
+  endMinute = parseInt(body.endHour) *60 + parseInt(body.endMinute);
+  var scanner = {"scannerID":body.scannerID,"day":body.day,"startMinute":startMinute,"endMinute":endMinute,"courseCode":body.courseCode};
+  console.log(scanner);
+    Scanner.deleteScanner(scanner,function(err,record){
+      if(err){
+          throw err;
+      }  
+      console.log(record)    
+      res.json(record);
+    });
+});
+
 module.exports = router;
