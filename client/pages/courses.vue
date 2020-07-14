@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <div>
-      <form class = "form-group row justify-content-center" @submit.prevent="handleSubmit">
+      <form class = "form-group" @submit.prevent="handleSubmit">
+        <div class="row justify-content-center">
           <div class = "form-group col-sm-1">
               <label for="dayForm">Day </label>
               <input type="text" v-model="day" class="form-control" id="dayForm">
@@ -28,15 +29,40 @@
               <input type="text" v-model="year2" class="form-control" id="yearForm2">
           </div>
           <button type="submit" class="btn btn-primary">Apply</button>
-      </form> 
-      <p v-if="error">
-        Please fill in all fields
-      </p>
-      <p v-else>
-        <ul>
-          <li v-for="i in data">{{i}}</li>
-        </ul>
-      </p>
+        </div>
+        <div class = "form-group col-sm-8">
+            <label for="scannerID" class="">Scanner ID</label>
+            <input type="text" v-model="scannerID" class="form-control col-sm-3" name="scannerID">
+        </div>
+      </form>
+      <div v-if="error"> 
+        <p>
+          Please fill in all fields
+        </p>
+      </div>
+      <div v-else>
+        <p>
+          <ul>
+            <li v-for="i in data">{{i}}</li>
+          </ul>
+          <table class = "table table-striped">
+            <thead>
+              <th>Course Code</th>
+              <th>Date</th>
+              <th>Student ID</th>
+              <th>Scanner ID</th>
+            </thead>
+            <tbody>
+              <tr v-for="x in data" :key = "student._id" >
+                <td>{{x.courseCode}}</td>
+                <td>{{x.date}}</td>
+                <td>{{x.studentID}}</td>
+                <td>{{x.scannerID}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -57,18 +83,19 @@ export default {
       month2:null,
       day2:null,
       data:[],
+      scannerID:null,
       error:null
     };
   },
   methods:{
       async handleSubmit(){
-          if(!this.day || !this.month || !this.year || !this.day2 || !this.month2 || !this.year2){
+          if(!this.day || !this.month || !this.year || !this.day2 || !this.month2 || !this.year2 || !this.scannerID){
             this.error = true;
           }else{
             this.error = false;
             let dateFrom = this.year+"-"+this.month+"-"+this.day;
             let dateTo = this.year2+"-"+this.month2+"-"+this.day2;
-            this.data = await AttendanceService.getAttendanceBetweenDate(dateFrom,dateTo,"COMP3120");
+            this.data = await AttendanceService.getAttendanceBetweenDate(dateFrom,dateTo,"COMP3120",this.scannerID);
           }
       }
   },

@@ -49,10 +49,10 @@ class AttendanceService{
     }
 
     //Get Attendance Record between Dates
-    static getAttendanceBetweenDate(datefrom,dateto,courseCode){
+    static getAttendanceBetweenDate(datefrom,dateto,courseCode,scannerID){
         return new Promise(async (resolve,reject) => {
             try{
-                let currentUrl = url+'/2date/'+datefrom+'/'+dateto+'/'+courseCode;
+                let currentUrl = url+'/2date/'+datefrom+'/'+dateto+'/'+courseCode+'/'+scannerID;
                 const res = await axios.get(currentUrl);
                 const data = res.data;
                 resolve(

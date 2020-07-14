@@ -106,7 +106,7 @@
                 </select>
           </div>
           <div class = "form-group col-sm-1">
-              <label for="noonOrNight"><br></label>
+              <label for="noonOrNight">A.M./P.M.</label>
                 <select  name="noonOrNight" v-model="noonOrNight" >
                     <option value="1" selected>A.M.</option>
                     <option value="2">P.M.</option>
@@ -196,7 +196,7 @@
           </div>
           <div class = "form-group col-sm-1">
               <label for="noonOrNight2">
-                  <br>
+                  A.M./P.M.
               </label>
                 <select  name="noonOrNight2" v-model="noonOrNight2">
                     <option value="1" selected>A.M.</option>
@@ -204,7 +204,7 @@
                 </select>
           </div>
           <div class = "form-group row">
-            <label for="course">Scanner ID</label>
+            <label for="scannerID">Scanner ID</label>
             <input type="text" v-model="scannerID" class="form-control" name="scannerID">
           </div>
         </div>

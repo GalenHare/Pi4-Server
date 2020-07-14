@@ -14,6 +14,10 @@ var attendanceSchema = mongoose.Schema({
     courseCode:{
         type:String,
         required:true
+    },
+    scannerID:{
+        type:String,
+        required:true
     }
 })
 
@@ -40,8 +44,8 @@ module.exports.getAttendanceByDate = function(date,callback,limit){
 }
 
 //get attendance records between two dates
-module.exports.getAttendanceBetweenDates = function(coursecode,datefrom,dateto,callback,limit){
-    Attendance.find({courseCode:coursecode,date:{ "$gte" : datefrom, "$lt" : dateto }},callback).limit(limit);
+module.exports.getAttendanceBetweenDates = function(coursecode,datefrom,dateto,scannerID,callback,limit){
+    Attendance.find({scannerID:scannerID,courseCode:coursecode,date:{ "$gte" : datefrom, "$lt" : dateto }},callback).limit(limit);
 }
 
 //update attendance records by student ID
@@ -50,16 +54,16 @@ module.exports.updateAttendanceRecord = function(id,attendanceR,options,callback
     var update = {
         date : attendanceR.date
     }
-    Student.findOneAndUpdate(query,update,options);
+    Attendance.findOneAndUpdate(query,update,options);
 }
 
 //delete attendance records by student ID
 module.exports.deleteAttendanceRecord = function(id,callback){
-    Student.deleteMany({id:id},callback);
+    Attendance.deleteMany({id:id},callback);
 }
 
-//delete attendance records by student ID and date
-module.exports.deleteAttendanceRecordbyDate = function(id,date,callback){
-    Student.deleteMany({id:id, date:date},callback);
-}
+// //delete attendance records by student ID and date
+// module.exports.deleteAttendanceRecordbyDate = function(id,date,callback){
+//     Attendance7c                                                                                                                                           .deleteMany({id:id, date:date},callback);
+// }
 

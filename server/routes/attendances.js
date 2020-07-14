@@ -38,8 +38,8 @@ router.get('/date/:date',function(req,res){
 });
 
 //Get attendance between two dates
-router.get('/2date/:datefrom/:dateto/:courseCode',function(req,res){
-    Attendance.getAttendanceBetweenDates(req.params.courseCode,req.params.datefrom,req.params.dateto,function(err,attendance){
+router.get('/2date/:datefrom/:dateto/:courseCode/:scannerID',function(req,res){
+    Attendance.getAttendanceBetweenDates(req.params.courseCode,req.params.datefrom,req.params.dateto,req.params.scannerID,function(err,attendance){
       if(err){
           throw err;
       }      

@@ -1,23 +1,17 @@
 <template>
   <div class="container">
     <div>
-      <logo />
+      <!-- <logo /> -->
+      <img src="~/assets/logo.png">
       <h1 class="title">
-        Attendance Monitor
+        Registration Authentication Unit
       </h1>
       <h2 class="subtitle">
-        One stop drop
+        
       </h2>
       <div class="links">
         <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
+          href="https://github.com/GalenHare"
           target="_blank"
           class="button--grey"
         >
@@ -29,11 +23,11 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+// import Logo from '~/components/Logo.vue'
 
 export default {
   components: {
-    Logo
+    // Logo
   },
   data() {
     return {
