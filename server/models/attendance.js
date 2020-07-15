@@ -48,6 +48,11 @@ module.exports.getAttendanceBetweenDates = function(coursecode,datefrom,dateto,s
     Attendance.find({scannerID:scannerID,courseCode:coursecode,date:{ "$gte" : datefrom, "$lt" : dateto }},callback).limit(limit);
 }
 
+//get attendance records between two dates
+module.exports.getAttendanceBetweenDatesID = function(studentID,datefrom,dateto,scannerID,callback,limit){
+    Attendance.find({scannerID:scannerID,studentID:studentID,date:{ "$gte" : datefrom, "$lt" : dateto }},callback).limit(limit);
+}
+
 //update attendance records by student ID
 module.exports.updateAttendanceRecord = function(id,attendanceR,options,callback){
     var query = {studentID:id};

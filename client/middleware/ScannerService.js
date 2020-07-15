@@ -1,6 +1,6 @@
-    import axios from "axios";
+import axios from "axios";
 
-const url = 'http://localhost:5000/api/scanner';
+const url = 'http://192.168.1.140:5000/api/scanner';
 
 class ScannerService{
     //Get all Scanner Records

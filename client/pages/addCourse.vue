@@ -277,11 +277,13 @@ export default {
           if(this.buttonVal == "1"){
             this.data = await ScannerService.addCourse(this.scannerID,this.course,this.startDay, tempStartHour, this.startMinute, tempEndHour, this.endMinute);
             if(this.data != null){
+              console.log(this.data)
               alert("Query Successful");
             }
           }else{
             this.data = await ScannerService.deleteCourse(this.scannerID,this.course,this.startDay, tempStartHour, this.startMinute, tempEndHour, this.endMinute  );
             if(this.data != null){
+              console.log(this.data)
               alert("Query Successful");
             }
           }

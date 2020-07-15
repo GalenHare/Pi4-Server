@@ -36,8 +36,8 @@
               <input type="text" v-model="scannerID" class="form-control" name="scannerID">
           </div>
           <div class = "form-group col-sm-4">
-              <label for="courseCode" class="">Course Code</label>
-              <input type="text" v-model="courseCode" class="form-control" name="courseCode">
+              <label for="studentID" class="">Student ID</label>
+              <input type="text" v-model="studentID" class="form-control" name="studentID">
           </div>
         </div>
       </form>
@@ -49,18 +49,18 @@
       <div v-show="!error">
           <table class = "table table-striped">
             <thead>
-              <th>Course Code</th>
+              <th>Student ID</th>
               <th>Date</th>
               <th>Time</th>
-              <th>Student ID</th>
+              <th>Course Code</th>
               <th>Scanner ID</th>
             </thead>
             <tbody>
-              <tr v-for="x in toPrint" :key = "x" >
-                <td>{{x.courseCode}}</td>
+              <tr v-for="x in toPrint" :key = "x.studentID" >
+                <td>{{x.studentID}}</td>
                 <td>{{x.date}}</td>
                 <td>{{x.time}}</td>
-                <td>{{x.studentID}}</td>
+                <td>{{x.courseCode}}</td>
                 <td>{{x.scannerID}}</td>
               </tr>
             </tbody>
@@ -72,7 +72,6 @@
 
 <script>
 import AttendanceService from '../middleware/AttendanceService.js';
-import moment from 'moment';
 export default {
   components: {
     
@@ -87,7 +86,7 @@ export default {
       day2:null,
       data:[],
       scannerID:null,
-      courseCode:null,
+      studentID:null,
       toPrint:[],
       len:null,
       error:true
@@ -101,7 +100,7 @@ export default {
             this.error = false;
             let dateFrom = this.year+"-"+this.month+"-"+this.day;
             let dateTo = this.year2+"-"+this.month2+"-"+this.day2;
-            this.data = await AttendanceService.getAttendanceBetweenDate(dateFrom,dateTo,this.courseCode,this.scannerID);
+            this.data = await AttendanceService.getAttendanceBetweenDateID(dateFrom,dateTo,this.studentID,this.scannerID);
             console.log(this.data.length);
             if(this.data != []){
               this.len = this.data.length;
@@ -109,10 +108,10 @@ export default {
                 let tempDate = new Date(this.data[i].date)
                 console.log(tempDate)
                 let temp = {
-                              "courseCode":this.data[i].courseCode,
+                              "studentID":this.data[i].studentID,
                               "date":tempDate.toDateString(),
                               "time":tempDate.getUTCHours()+":"+tempDate.getUTCMinutes() + ":"+tempDate.getUTCSeconds(),
-                              "studentID":this.data[i].studentID,                             
+                              "courseCode":this.data[i].courseCode,                             
                               "scannerID":this.data[i].scannerID
                 }
                 console.log(temp)
