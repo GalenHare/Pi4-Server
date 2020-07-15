@@ -47,6 +47,16 @@ router.get('/2date/:datefrom/:dateto/:courseCode/:scannerID',function(req,res){
     });
 });
 
+//Get attendance between two dates by ID
+router.get('/2dateID/:datefrom/:dateto/:studentID/:scannerID',function(req,res){
+    Attendance.getAttendanceBetweenDatesID(req.params.studentID,req.params.datefrom,req.params.dateto,req.params.scannerID,function(err,attendance){
+      if(err){
+          throw err;
+      }      
+      res.json(attendance);
+    });
+});
+
 //Post attendance record for student by ID and course code
 router.post('/',function(req,res){
     console.log(req.url);
